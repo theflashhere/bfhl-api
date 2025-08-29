@@ -11,12 +11,13 @@ function isAllAlpha(s) {
 }
 
 function computeConcatString(chars) {
-  // reverse sequence, alternating caps (start with UPPER)
   const reversed = chars.slice().reverse();
-  return reversed.map((ch, i) => {
-    if (!/[A-Za-z]/.test(ch)) return ch;
-    return i % 2 === 0 ? ch.toUpperCase() : ch.toLowerCase();
-  }).join("");
+  return reversed
+    .map((ch, i) => {
+      if (!/[A-Za-z]/.test(ch)) return ch;
+      return i % 2 === 0 ? ch.toUpperCase() : ch.toLowerCase();
+    })
+    .join("");
 }
 
 app.post("/bfhl", (req, res) => {
@@ -48,18 +49,20 @@ app.post("/bfhl", (req, res) => {
 
     const concat_string = computeConcatString(alphaCharsSeq);
 
-    res.json({
+    // Pretty JSON response
+    res.setHeader("Content-Type", "application/json");
+    res.send(JSON.stringify({
       is_success: true,
-      user_id: "abhinavsrivastava_28062003",  // update with your details
-      email: "your_email@example.com",        // update with your email
-      roll_number: "22BCE9999",               // update with your roll no
+      user_id: "abhinavsrivastava_28062003",
+      email: "your_email@example.com",
+      roll_number: "22BCE9999",
       odd_numbers,
       even_numbers,
       alphabets,
       special_characters,
       sum: String(sum),
-      concat_string,
-    });
+      concat_string
+    }, null, 2)); // 2-space indentation for readability
   } catch (err) {
     res.status(400).json({ is_success: false, message: err.message });
   }
