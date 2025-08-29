@@ -49,7 +49,7 @@ app.post("/bfhl", (req, res) => {
 
     const concat_string = computeConcatString(alphaCharsSeq);
 
-    // Pretty JSON response
+    
     res.setHeader("Content-Type", "application/json");
     res.send(JSON.stringify({
       is_success: true,
@@ -62,7 +62,7 @@ app.post("/bfhl", (req, res) => {
       special_characters,
       sum: String(sum),
       concat_string
-    }, null, 2)); // 2-space indentation for readability
+    }, null, 2)); 
   } catch (err) {
     res.status(400).json({ is_success: false, message: err.message });
   }
