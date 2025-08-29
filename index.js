@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 
 const app = express();
 app.use(express.json());
@@ -11,7 +11,7 @@ function isAllAlpha(s) {
 }
 
 function computeConcatString(chars) {
-  // reverse order, alternating caps (start with UPPER)
+  // reverse sequence, alternating caps (start with UPPER)
   const reversed = chars.slice().reverse();
   return reversed.map((ch, i) => {
     if (!/[A-Za-z]/.test(ch)) return ch;
@@ -28,7 +28,6 @@ app.post("/bfhl", (req, res) => {
     const alphabets = [];
     const special_characters = [];
     let sum = 0;
-
     const alphaCharsSeq = [];
 
     for (const item of data) {
@@ -51,9 +50,9 @@ app.post("/bfhl", (req, res) => {
 
     res.json({
       is_success: true,
-      user_id: "abhinavsrivastava_28062003", // <-- adjust as per your DOB
-      email: "your_email@example.com",        // <-- replace with your email
-      roll_number: "22BCE9999",               // <-- replace with your roll no
+      user_id: "abhinavsrivastava_28062003",  // update with your details
+      email: "your_email@example.com",        // update with your email
+      roll_number: "22BCE9999",               // update with your roll no
       odd_numbers,
       even_numbers,
       alphabets,
@@ -66,6 +65,7 @@ app.post("/bfhl", (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
